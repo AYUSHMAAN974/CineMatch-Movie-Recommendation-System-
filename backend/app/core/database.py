@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool
@@ -67,7 +67,8 @@ def test_db_connection():
     """
     try:
         with engine.connect() as connection:
-            connection.execute("SELECT 1")
+            # Fixed: Use text() to wrap SQL query
+            connection.execute(text("SELECT 1"))
         print("✅ Database connection successful")
         return True
     except Exception as e:

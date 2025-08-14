@@ -4,6 +4,7 @@ from contextlib import asynccontextmanager
 
 from .core.config import settings
 from .core.database import test_db_connection, test_redis_connection
+from .api.v1.router import api_router
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -35,6 +36,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Include API routes
+app.include_router(api_router, prefix=settings.API_V1_STR)
 
 @app.get("/")
 async def root():
