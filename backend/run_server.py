@@ -1,6 +1,9 @@
+import os
 import uvicorn
 import sys
-import os
+
+os.environ['PYTHONDONTWRITEBYTECODE'] = '1'
+
 sys.path.append(os.path.join(os.path.dirname(__file__), 'app'))
 
 if __name__ == "__main__":
